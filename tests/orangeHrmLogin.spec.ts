@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('SUITE 1', () => {
+test.describe('SUITE 1', {tag: '@Regression'}, () => {
 
   test('Testing environment variable setup', async () => {
 
@@ -29,7 +29,7 @@ test.describe('SUITE 1', () => {
     await page.close();
   });
 
-  test('Logout - suit 1 ', async ({ page }) => {
+  test('Logout - suit 1 ', {tag: '@Smoke'},  async ({ page }) => {
 
     await page.goto('https://opensource-demo.orangehrmlive.com/');
     await page.locator('[name="username"]').fill('Admin')

@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('SUITE 2', () => {
+test.describe('SUITE 2', {tag:'@Regression'},  () => {
 
-  test('Login test', async ({ page }) => {
+  test('Login test', {tag: '@Smoke'}, async ({ page }) => {
 
     await page.goto('https://opensource-demo.orangehrmlive.com/');
     await page.locator('[name="username"]').fill('Admin')
@@ -13,7 +13,7 @@ test.describe('SUITE 2', () => {
   });
 
 
-  test('Invalid Credentials', async ({ page }) => {
+  test('Invalid Credentials', {tag: '@Smoke'},  async ({ page }) => {
 
     await page.goto('https://opensource-demo.orangehrmlive.com/');
     await page.locator('[name="username"]').fill('Admin')
