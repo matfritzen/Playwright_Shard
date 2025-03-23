@@ -7,7 +7,7 @@ pipeline {
     }    
     stage('test') {
         steps {
-            sh ' npx playwright test --grep='@Smoke' '
+            sh 'npx playwright test --grep="@Smoke"'
         }
     }   
 }
