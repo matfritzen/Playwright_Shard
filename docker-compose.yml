@@ -1,0 +1,111 @@
+version: '3'
+services:
+
+  playwright-test-chrome_shard1:
+
+    build: .
+    container_name: playwright_docker_CHROME_SHARD1
+    volumes:
+    # For Windows
+      # - ./:/app
+    # For  Mac
+      - $PWD:/app
+      - $PWD/playwright-report/report-chrome-shard1:/app/playwright-report
+    command: npm run execute:script:chrome:shard1
+
+  playwright-test-chrome_shard2:
+    
+    build: .
+    container_name: playwright_docker_CHROME_SHARD2
+    volumes:
+    # For Windows
+      # - ./:/app
+    # For  Mac
+      - $PWD:/app
+      - $PWD/playwright-report/report-chrome-shard2:/app/playwright-report
+    command: npm run execute:script:chrome:shard2
+
+  playwright-test-chrome_shard3:
+    
+    build: .
+    container_name: playwright_docker_CHROME_SHARD3
+    volumes:
+    # For Windows
+      # - ./:/app
+    # For  Mac
+      - $PWD:/app
+      - $PWD/playwright-report/report-chrome-shard3:/app/playwright-report
+    command: npm run execute:script:chrome:shard3
+
+  playwright-test-firefox-shard1:
+    
+    build: .
+    container_name: playwright_docker_FIREFOX_SHARD1
+    volumes:
+    # For Windows
+      # - ./:/app
+    # For  Mac
+      - $PWD:/app
+      - $PWD/playwright-report/report-firefox-shard1:/app/playwright-report
+    command: npm run execute:script:firefox:shard1
+
+
+  playwright-test-firefox-shard2:
+    
+    build: .
+    container_name: playwright_docker_FIREFOX_SHARD2
+    volumes:
+    # For Windows
+      # - ./:/app
+    # For  Mac
+      - $PWD:/app
+      - $PWD/playwright-report/report-firefox-shard2:/app/playwright-report
+    command: npm run execute:script:firefox:shard2
+
+  playwright-test-firefox-shard3:
+    
+    build: .
+    container_name: playwright_docker_FIREFOX_SHARD3
+    volumes:
+    # For Windows
+      # - ./:/app
+    # For  Mac
+      - $PWD:/app
+      - $PWD/playwright-report/report-firefox-shard3:/app/playwright-report
+    command: npm run execute:script:firefox:shard3
+
+  playwright-test-webkit-shard1:
+    
+    build: .
+    container_name: playwright_docker_WEBKIT_SHARD1
+    volumes:
+    # For Windows
+      # - ./:/app
+    # For  Mac
+      - $PWD:/app
+      - $PWD/playwright-report/report-webkit-shard1:/app/playwright-report
+    command: npm run execute:script:webkit:shard1
+
+  playwright-test-webkit-shard2:
+    
+    build: .
+    container_name: playwright_docker_WEBKIT_SHARD2
+    volumes:
+    # For Windows
+      # - ./:/app
+    # For  Mac
+      - $PWD:/app
+      - $PWD/playwright-report/report-webkit-shard2:/app/playwright-report
+    command: npm run execute:script:webkit:shard2
+
+  playwright-test-webkit-shard3:
+    
+    build: .
+    container_name: playwright_docker_WEBKIT_SHARD3
+    volumes:
+    # For Windows
+      # - ./:/app
+    # For  Mac
+      - $PWD:/app
+      - $PWD/playwright-report/report-webkit-shard3:/app/playwright-report
+    command: npm run execute:script:webkit:shard3

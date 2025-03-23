@@ -1,0 +1,44 @@
+{
+  "name": "playwright-docker-udemy-course",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "clean:reports": "rimraf allure-report allure-results && mkdirp allure-report allure-results",
+    "generate:reports": "npx allure generate ./allure-results --clean",
+    "open:reports": "npx allure open ./allure-report",
+    "pretest": "npm run clean:reports",
+    "posttest": "npm run generate:reports && npm run open:reports",
+    "execute:script:chrome:shard1": "npx playwright test --project=chromium --shard=1/3",
+    "execute:script:chrome:shard2": "npx playwright test --project=chromium --shard=2/3",
+    "execute:script:chrome:shard3": "npx playwright test --project=chromium --shard=3/3",
+    "execute:script:firefox:shard1": "npx playwright test --project=firefox --shard=1/3",
+    "execute:script:firefox:shard2": "npx playwright test --project=firefox --shard=2/3",
+    "execute:script:firefox:shard3": "npx playwright test --project=firefox --shard=3/3",
+    "execute:script:webkit:shard1": "npx playwright test --project=webkit --shard=1/3",
+    "execute:script:webkit:shard2": "npx playwright test --project=webkit --shard=2/3",
+    "execute:script:webkit:shard3": "npx playwright test --project=webkit --shard=3/3",
+    "convert-report-to-html": "npx playwright merge-reports --reporter html ./all-blobs-reports",
+    "merge-html-reports": "npx ts-node ./merge-reports/merge-reports.ts",
+    "test": "npm run execute:script || npm run posttest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.51.0",
+    "@types/luxon": "^3.3.1",
+    "@types/node": "^20.6.4",
+    "allure-commandline": "^2.24.0",
+    "allure-playwright": "^2.7.0",
+    "csv-parse": "^5.5.0",
+    "luxon": "^3.3.0",
+    "mkdirp": "^3.0.1",
+    "rimraf": "^5.0.1"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "playwright": "^1.51.0",
+    "playwright-merge-html-reports": "^0.2.8"
+  }
+}
