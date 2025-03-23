@@ -6,12 +6,10 @@ pipeline {
                 sh 'npm ci'
                 sh 'npx playwright install'
             }
-        }   
-
-        stage('test') {
             steps {
                 sh 'npx playwright test --grep=@Smoke'
             }
         }   
+          
     } 
 }
