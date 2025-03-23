@@ -1,13 +1,13 @@
 pipeline {
    agent { docker { image 'mcr.microsoft.com/playwright:v1.51.1-noble' } }
-    stages {
+    stages('test') {
       steps {
             sh 'npm ci'
         }
     }    
     stage('test') {
         steps {
-            sh 'npx playwright test --grep="@Smoke"'
+            sh 'npx playwright test --grep=@Smoke'
         }
     }   
 }
