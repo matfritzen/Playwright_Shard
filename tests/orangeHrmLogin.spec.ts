@@ -1,6 +1,20 @@
 import { test, expect } from '@playwright/test';
+import LoginPage from '../pageObjects/LoginPage';
+import HomePage from '../pageObjects/HomePage';
+import * as testData from '../data/testData.json';
 
-test.describe('SUITE 1', {tag: '@Regression'}, () => {
+let loginPage: LoginPage;
+
+test.describe('SUITE 1', { tag: '@Regression' }, () => {
+
+  test.beforeEach(async ({ page }) => {
+    loginPage = new LoginPage(page);
+    await page.goto('https://opensource-demo.orangehrmlive.com/');
+  })
+
+  test.afterEach(async ({ page }) => {
+    await page.close();
+  })
 
   test('Testing environment variable setup', async () => {
 
@@ -9,36 +23,29 @@ test.describe('SUITE 1', {tag: '@Regression'}, () => {
   })
 
   test('Login test - suit 1', async ({ page }) => {
+    const homePage = new HomePage(page);
 
-    await page.goto('https://opensource-demo.orangehrmlive.com/');
-    await page.locator('[name="username"]').fill('Admin')
-    await page.locator('[name="password"]').fill('admin123')
-    await page.locator('[type="submit"]').click()
-    await expect(page.locator('.oxd-userdropdown-img')).toBeVisible();
-    await page.close();
+    await loginPage.doLogin(testData.username, testData.password)
+    await expect(homePage.userDropdown).toBeVisible();
   });
 
 
   test('Invalid Credentials - suit 1 ', async ({ page }) => {
 
-    await page.goto('https://opensource-demo.orangehrmlive.com/');
-    await page.locator('[name="username"]').fill('Admin')
-    await page.locator('[name="password"]').fill('aadas')
-    await page.locator('[type="submit"]').click()
-    await expect(page.locator('[role="alert"]')).toBeVisible();
-    await page.close();
+    const alert = page.locator('[role="alert"]');
+
+    await loginPage.doLogin(testData.username, testData.invalidPassword)
+    await expect(alert).toBeVisible();
+    await expect(alert).toHaveText('Invalid credentials');
   });
 
-  test('Logout - suit 1 ', {tag: '@Smoke'},  async ({ page }) => {
+  test('Logout - suit 1 ', { tag: '@Smoke' }, async ({ page }) => {
+    const homePage = new HomePage(page);
 
-    await page.goto('https://opensource-demo.orangehrmlive.com/');
-    await page.locator('[name="username"]').fill('Admin')
-    await page.locator('[name="password"]').fill('admin123')
-    await page.locator('[type="submit"]').click()
-    await page.locator('.oxd-userdropdown').click()
-    await page.locator('.oxd-userdropdown-link').nth(3).click()
-    await expect(page.locator('[name="username"]')).toBeVisible();
-    await page.close();
+    await loginPage.doLogin(testData.username, testData.password)
+    await expect(homePage.userDropdown).toBeVisible();
+    await homePage.doLogout();
+    await expect(loginPage.loginButton).toBeVisible();
   });
 
 })
