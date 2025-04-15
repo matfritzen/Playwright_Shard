@@ -14,6 +14,8 @@ import 'dotenv/config'
  */
 export default defineConfig({
 
+  globalSetup: require.resolve('./tests/setup/global-setup.ts'),
+
   testDir: './tests',
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -37,6 +39,8 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'retain-on-failure',
+    baseURL: 'https://opensource-demo.orangehrmlive.com',
+    storageState: 'storageState.json'
   },
 
   /* Configure projects for major browsers */
