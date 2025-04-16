@@ -7,6 +7,9 @@ on:
 jobs:
   playwright-tests:
     runs-on: ubuntu-latest
+    env:
+      ENVIRONMENT: ${{ vars.ENVIRONMENT }}
+      TEST: ${{ secrets.TEST }}
     strategy:
       fail-fast: false
       matrix:
