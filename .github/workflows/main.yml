@@ -7,11 +7,12 @@ on:
 jobs:
   playwright-tests:
     runs-on: ubuntu-latest
+    # if: github.event.deployment_status.state == 'success'  -- In case of running after a successfull deployment
     container:
       image: mcr.microsoft.com/playwright:v1.51.0-noble
     env:
       ENVIRONMENT: ${{ vars.ENVIRONMENT }}
-      HOME: /root
+      HOME: /root #This variable is for the firefox tests not fail
       TEST: ${{ secrets.TEST }}
     strategy:
       fail-fast: false
@@ -25,9 +26,17 @@ jobs:
         node-version: lts/*
     - name: Install dependencies
       run: npm ci
-      
+
+    # Not needed when using the Docker Image
     # - name: Install Playwright Browsers
     #   run: npx playwright install --with-deps
+
+    # In case of a large suit we can check only the tests affected by the code change first, and then after run the whole suite
+    # Check the setup for this in the Fail Fast section --  https://playwright.dev/docs/ci#github-actions 
+    
+    # - name: Run changed Playwright tests
+    #   run: npx playwright test --only-changed=$GITHUB_BASE_REF
+    #   if: github.event_name == 'pull_request'
       
     - name: Run Playwright tests
       run: npx playwright test --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
