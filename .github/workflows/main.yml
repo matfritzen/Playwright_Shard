@@ -11,6 +11,7 @@ jobs:
       image: mcr.microsoft.com/playwright:v1.51.0-noble
     env:
       ENVIRONMENT: ${{ vars.ENVIRONMENT }}
+      HOME: /root
       TEST: ${{ secrets.TEST }}
     strategy:
       fail-fast: false
